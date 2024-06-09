@@ -1,8 +1,8 @@
 globalConfig:
   prometheus_url: http://prometheus-operated.monitoring.svc.cluster.local:9090/prometheus
   alertmanager_url: http://alertmanager-operated.monitoring.svc.cluster.local:9093/alert
-  signing_key: b7ad4992-3cc8-4305-8d9c-6b03c67196ac
-  account_id: 8239a33f-f2df-4365-819c-3432b344c3f1
+  signing_key: { generated-signing-key }
+  account_id: { genereted-account-id }
 sinksConfig:
 - slack_sink:
     name: test_slack
@@ -11,4 +11,4 @@ sinksConfig:
 enablePlatformPlaybooks: true
 runner:
   sendAdditionalTelemetry: true
-clusterName: kubernetes-admin@kubernetes
+clusterName: { k8s-cluster-name }
