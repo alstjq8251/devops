@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: external-apache-sm
+spec:
+  selector:
+    matchLabels:
+      external-web: apache
+  endpoints:
+    - port: "http-metric"
+      path: /metrics
+      scheme: http
+      tlsConfig:
+        insecureSkipVerify: true
+      relabelings:
+        - sourceLabels: [ __meta_kubernetes_service_name ]
+          targetLabel: __address__
+          regex: (.*)
+          replacement: "$1.monitoring.svc.cluster.local:9117"
+          action: replace
+  namespaceSelector:
+    matchNames:
+      - monitoring
